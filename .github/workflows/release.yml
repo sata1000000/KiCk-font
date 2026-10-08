@@ -1,0 +1,51 @@
+name: Build & Release
+
+# A version bump in `KiCk-Regular.sfd` triggers a new release.
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'KiCk-Regular.sfd'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Detect Version Change
+        id: detect
+        run: |
+          version=$(grep '^Version:' KiCk-Regular.sfd | cut -d' ' -f2)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+          if git rev-parse -q --verify "refs/tags/v$version" > /dev/null; then
+            echo "v$version is already released. Nothing to build."
+          else
+            echo "unreleased=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install FontForge
+        if: steps.detect.outputs.unreleased == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fontforge
+
+      - name: Compile OTF
+        if: steps.detect.outputs.unreleased == 'true'
+        run: fontforge -c 'fontforge.open("KiCk-Regular.sfd").generate("KiCk-Regular.otf")'
+
+      - name: Publish Release
+        if: steps.detect.outputs.unreleased == 'true'
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ steps.detect.outputs.version }}
+          name: KiCk v${{ steps.detect.outputs.version }}
+          files: KiCk-Regular.otf
