@@ -11,7 +11,6 @@ UnderlineWidth: 50
 Ascent: 800
 Descent: 200
 InvalidEm: 0
-sfntRevision: 0x00010000
 LayerCount: 2
 Layer: 0 0 "Back" 1
 Layer: 1 0 "Fore" 0
@@ -54,12 +53,12 @@ OS2StrikeYSize: 49
 OS2StrikeYPos: 258
 OS2CapHeight: 758
 OS2XHeight: 699
-OS2Vendor: 'CLGR'
+OS2Vendor: 'NONE'
 OS2CodePages: 00000001.00000000
 OS2UnicodeRanges: 00000003.00000000.00000000.00000000
 MarkAttachClasses: 1
 DEI: 91125
-LangName: 1033 "" "" "" "FontForge 2.0 : KiCk Regular : 6-5-2022" "" "Version 001.001" "" "" "" "" "" "" "" "" "" "" "KiCk" "Regular"
+LangName: 1033 "" "" "" "" "" "" "" "" "" "" "" "" "" "To the extent possible under law, the person who associated CC0 with this work has waived all copyright and related or neighboring rights to this work." "https://creativecommons.org/publicdomain/zero/1.0/" "" "KiCk" "Regular"
 Encoding: UnicodeBmp
 UnicodeInterp: none
 NameList: AGL For New Fonts
